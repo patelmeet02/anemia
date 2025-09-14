@@ -52,6 +52,9 @@ def predict():
     return render_template("predict.html",prediction_text=text + str(result))
 
 if __name__ == "__main__":
-    app.run(debug=False,port=5000)
+    # Get port from environment variable or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    # Run in production mode
+    app.run(host='0.0.0.0', port=port, debug=False)
     
     
