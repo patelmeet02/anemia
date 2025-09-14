@@ -10,6 +10,12 @@ Before deploying, ensure you have:
 - ✅ All dependencies listed in `requirements.txt`
 - ✅ Production-ready Flask app (already configured)
 
+## ⚠️ Python Version Compatibility
+
+**Important**: Some deployment platforms use Python 3.12 by default, which has compatibility issues with certain packages. We've included:
+- `runtime.txt` - Specifies Python 3.11.7 for better compatibility
+- `requirements-deploy.txt` - Alternative requirements with version ranges for more flexible deployment
+
 ## 🌐 Deployment Options
 
 ### Option 1: Heroku (Recommended for Beginners)
@@ -228,20 +234,25 @@ heroku ps
 
 ### Common Issues:
 
-1. **App crashes on startup**
+1. **Python 3.12 compatibility errors (distutils module not found)**
+   - **Solution**: Use `requirements-deploy.txt` instead of `requirements.txt`
+   - **Alternative**: Ensure your platform uses Python 3.11 (check `runtime.txt`)
+   - **Command**: `pip install -r requirements-deploy.txt`
+
+2. **App crashes on startup**
    - Check that all dependencies are in `requirements.txt`
    - Verify the `Procfile` is correct
    - Check logs for specific error messages
 
-2. **Static files not loading**
+3. **Static files not loading**
    - Ensure static files are in the correct directory
    - Check Flask static file configuration
 
-3. **Model file not found**
+4. **Model file not found**
    - Verify `model.pkl` is in the Flask directory
    - Check file permissions
 
-4. **Port binding issues**
+5. **Port binding issues**
    - Ensure your app uses `os.environ.get('PORT', 5000)`
    - Don't hardcode port numbers
 

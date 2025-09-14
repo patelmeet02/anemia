@@ -30,7 +30,7 @@ The system analyzes the following key blood parameters:
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.8-3.11 (Python 3.12 has compatibility issues with some packages)
 - pip (Python package installer)
 
 ### Installation
