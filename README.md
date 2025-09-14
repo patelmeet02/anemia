@@ -5,7 +5,6 @@ A modern, AI-powered web application for detecting anemia using machine learning
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Flask](https://img.shields.io/badge/Flask-2.3.3-green.svg)
 ![Machine Learning](https://img.shields.io/badge/ML-Scikit--Learn-orange.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## 🌟 Features
 
@@ -184,10 +183,6 @@ The machine learning model (`model.pkl`) was trained on clinical data. To retrai
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
