@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anemic Disease Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-heartbeat"></i> Anemic Disease Detection System</h1>
+            <p>Advanced AI-powered anemia detection using blood parameters</p>
+        </div>
+
+        <div class="main-content">
+            <div class="tab-container">
+                <button class="tab-button active" data-tab="about">
+                    <i class="fas fa-info-circle"></i> About
+                </button>
+                <button class="tab-button" data-tab="predict">
+                    <i class="fas fa-stethoscope"></i> Predict
+                </button>
+                <button class="tab-button" data-tab="details">
+                    <i class="fas fa-microscope"></i> Blood Parameters
+                </button>
+                <button class="tab-button" data-tab="gallery">
+                    <i class="fas fa-images"></i> Gallery
+                </button>
+            </div>
+
+            <!-- About Tab -->
+            <div id="about" class="tab-content active">
+                <div class="about-content">
+                    <h2>Welcome to Our Anemia Detection System</h2>
+                    <p>Our advanced machine learning system helps detect anemia by analyzing key blood parameters. 
+                    This tool provides quick, accurate predictions to assist in early diagnosis and treatment planning.</p>
+                    
+                    <div class="image-grid">
+                        <img src="https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg" 
+                             alt="Medical Laboratory" class="medical-image">
+                        <img src="https://images.pexels.com/photos/4047150/pexels-photo-4047150.jpeg" 
+                             alt="Blood Analysis" class="medical-image">
+                        <img src="https://images.pexels.com/photos/5234499/pexels-photo-5234499.jpeg" 
+                             alt="Healthcare Technology" class="medical-image">
+                    </div>
+
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-brain" style="font-size: 2rem; color: #007bff; margin-bottom: 15px;"></i>
+                            <h3>AI-Powered Analysis</h3>
+                            <p>Advanced machine learning algorithms provide accurate predictions based on comprehensive blood parameter analysis.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-clock" style="font-size: 2rem; color: #007bff; margin-bottom: 15px;"></i>
+                            <h3>Quick Results</h3>
+                            <p>Get instant predictions within seconds, enabling rapid decision-making for healthcare professionals.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt" style="font-size: 2rem; color: #007bff; margin-bottom: 15px;"></i>
+                            <h3>Reliable & Secure</h3>
+                            <p>Built with medical-grade accuracy and security standards to ensure patient data protection.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-user-md" style="font-size: 2rem; color: #007bff; margin-bottom: 15px;"></i>
+                            <h3>Medical Grade</h3>
+                            <p>Designed by healthcare professionals and validated against clinical standards for maximum reliability.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predict Tab -->
+            <div id="predict" class="tab-content">
+                <div class="form-container">
+                    <h2 style="text-align: center; color: #007bff; margin-bottom: 30px;">
+                        <i class="fas fa-stethoscope"></i> Anemia Prediction
+                    </h2>
+                    
+                    <form id="predictForm" action="/predict" method="POST">
+                        <div class="form-group">
+                            <label for="Gender">
+                                <i class="fas fa-venus-mars"></i> Gender
+                            </label>
+                            <select id="Gender" name="Gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="0">Female</option>
+                                <option value="1">Male</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Hemoglobin">
+                                <i class="fas fa-tint"></i> Hemoglobin (g/dL)
+                            </label>
+                            <input type="number" id="Hemoglobin" name="Hemoglobin" 
+                                   step="0.1" min="0" max="25" required 
+                                   placeholder="Enter hemoglobin level (e.g., 12.5)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MCH">
+                                <i class="fas fa-circle"></i> MCH - Mean Corpuscular Hemoglobin (pg)
+                            </label>
+                            <input type="number" id="MCH" name="MCH" 
+                                   step="0.1" min="0" max="50" required 
+                                   placeholder="Enter MCH value (e.g., 28.5)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MCHC">
+                                <i class="fas fa-circle"></i> MCHC - Mean Corpuscular Hemoglobin Concentration (g/dL)
+                            </label>
+                            <input type="number" id="MCHC" name="MCHC" 
+                                   step="0.1" min="0" max="50" required 
+                                   placeholder="Enter MCHC value (e.g., 32.5)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MCV">
+                                <i class="fas fa-circle"></i> MCV - Mean Corpuscular Volume (fL)
+                            </label>
+                            <input type="number" id="MCV" name="MCV" 
+                                   step="0.1" min="0" max="150" required 
+                                   placeholder="Enter MCV value (e.g., 85.5)">
+                        </div>
+
+                        <button type="submit" class="btn">
+                            <i class="fas fa-search"></i> Predict Anemia Risk
+                        </button>
+                    </form>
+
+                    <div id="loading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Analyzing blood parameters...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Tab -->
+            <div id="details" class="tab-content">
+                <h2 style="text-align: center; color: #007bff; margin-bottom: 30px;">
+                    <i class="fas fa-microscope"></i> Blood Parameter Details
+                </h2>
+                
+                <div class="details-grid">
+                    <div class="parameter-card">
+                        <h3><i class="fas fa-tint"></i> Hemoglobin (Hb)</h3>
+                        <div class="normal-range">Normal Range: 12-16 g/dL (Women), 14-18 g/dL (Men)</div>
+                        <p><strong>What it measures:</strong> Hemoglobin is the iron-containing protein in red blood cells that carries oxygen from the lungs to the rest of the body.</p>
+                        <p><strong>Why it matters:</strong> Low hemoglobin levels are the primary indicator of anemia. When hemoglobin is low, the body doesn't get enough oxygen, leading to fatigue, weakness, and other symptoms.</p>
+                        <p><strong>Clinical significance:</strong> Hemoglobin levels below normal ranges indicate various types of anemia, including iron deficiency, vitamin B12 deficiency, or chronic disease-related anemia.</p>
+                    </div>
+
+                    <div class="parameter-card">
+                        <h3><i class="fas fa-circle"></i> MCH - Mean Corpuscular Hemoglobin</h3>
+                        <div class="normal-range">Normal Range: 27-31 pg</div>
+                        <p><strong>What it measures:</strong> MCH indicates the average amount of hemoglobin in each red blood cell.</p>
+                        <p><strong>Why it matters:</strong> MCH helps classify anemia types. Low MCH suggests microcytic anemia (small cells with less hemoglobin), while high MCH indicates macrocytic anemia (large cells with more hemoglobin).</p>
+                        <p><strong>Clinical significance:</strong> MCH is crucial for distinguishing between iron deficiency anemia (low MCH) and vitamin B12/folate deficiency anemia (high MCH).</p>
+                    </div>
+
+                    <div class="parameter-card">
+                        <h3><i class="fas fa-circle"></i> MCHC - Mean Corpuscular Hemoglobin Concentration</h3>
+                        <div class="normal-range">Normal Range: 32-36 g/dL</div>
+                        <p><strong>What it measures:</strong> MCHC shows the concentration of hemoglobin in red blood cells relative to their size.</p>
+                        <p><strong>Why it matters:</strong> MCHC helps identify the cause of anemia. Low MCHC indicates hypochromic anemia (pale cells), while normal MCHC suggests normochromic anemia.</p>
+                        <p><strong>Clinical significance:</strong> MCHC is particularly useful in diagnosing iron deficiency anemia, where cells become hypochromic due to insufficient iron for hemoglobin production.</p>
+                    </div>
+
+                    <div class="parameter-card">
+                        <h3><i class="fas fa-circle"></i> MCV - Mean Corpuscular Volume</h3>
+                        <div class="normal-range">Normal Range: 80-100 fL</div>
+                        <p><strong>What it measures:</strong> MCV indicates the average size of red blood cells.</p>
+                        <p><strong>Why it matters:</strong> MCV is essential for anemia classification. Small cells (microcytic) suggest iron deficiency, while large cells (macrocytic) indicate vitamin B12 or folate deficiency.</p>
+                        <p><strong>Clinical significance:</strong> MCV helps differentiate between microcytic anemia (MCV < 80), normocytic anemia (MCV 80-100), and macrocytic anemia (MCV > 100).</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 10px; border-left: 5px solid #2196f3;">
+                    <h3 style="color: #1976d2; margin-bottom: 15px;">
+                        <i class="fas fa-lightbulb"></i> Understanding Your Results
+                    </h3>
+                    <p><strong>Normal Values:</strong> All parameters within normal ranges typically indicate healthy blood cell production and function.</p>
+                    <p><strong>Anemia Indicators:</strong> Low hemoglobin with abnormal MCH, MCHC, or MCV values helps identify the specific type and cause of anemia.</p>
+                    <p><strong>Important Note:</strong> This tool is for educational and screening purposes. Always consult with a healthcare professional for proper diagnosis and treatment.</p>
+                </div>
+            </div>
+
+            <!-- Gallery Tab -->
+            <div id="gallery" class="tab-content">
+                <h2 style="text-align: center; color: #007bff; margin-bottom: 30px;">
+                    <i class="fas fa-images"></i> Medical Gallery
+                </h2>
+                
+                <div class="image-grid">
+                    <div style="text-align: center;">
+                        <img src="https://images.pexels.com/photos/9574388/pexels-photo-9574388.jpeg" 
+                             alt="Medical Laboratory Equipment" class="medical-image">
+                        <h4>Advanced Laboratory Equipment</h4>
+                        <p>State-of-the-art blood analysis technology</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <img src="https://images.pexels.com/photos/9629693/pexels-photo-9629693.jpeg" 
+                             alt="Blood Sample Analysis" class="medical-image">
+                        <h4>Blood Sample Analysis</h4>
+                        <p>Precise measurement of blood parameters</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <img src="https://images.pexels.com/photos/8442371/pexels-photo-8442371.jpeg" 
+                             alt="Healthcare Technology" class="medical-image">
+                        <h4>Healthcare Technology</h4>
+                        <p>Modern diagnostic tools and equipment</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <img src="https://images.pexels.com/photos/9574463/pexels-photo-9574463.jpeg" 
+                             alt="Medical Research" class="medical-image">
+                        <h4>Medical Research</h4>
+                        <p>Continuous research and development</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <img src="https://images.pexels.com/photos/7551646/pexels-photo-7551646.jpeg" 
+                             alt="Patient Care" class="medical-image">
+                        <h4>Patient Care</h4>
+                        <p>Compassionate healthcare delivery</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg" 
+                             alt="Data Analysis" class="medical-image">
+                        <h4>Data Analysis</h4>
+                        <p>AI-powered diagnostic insights</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

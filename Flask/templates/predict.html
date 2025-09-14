@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results - Anemic Disease Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .result-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .result-icon.healthy {
+            color: #28a745;
+        }
+        
+        .result-icon.anemic {
+            color: #dc3545;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .result-title.healthy {
+            color: #28a745;
+        }
+        
+        .result-title.anemic {
+            color: #dc3545;
+        }
+        
+        .result-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        .recommendations {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .recommendations h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recommendations li {
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .recommendations li:last-child {
+            border-bottom: none;
+        }
+        
+        .recommendations li i {
+            color: #007bff;
+            margin-right: 10px;
+        }
+        
+        .back-button {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-heartbeat"></i> Prediction Results</h1>
+            <p>Your anemia risk assessment is complete</p>
+        </div>
+
+        <div class="result-container">
+            {% if "Anemic" in prediction_text %}
+                <div class="result-icon anemic">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h2 class="result-title anemic">Anemia Detected</h2>
+                <p class="result-description">
+                    Based on your blood parameters, our analysis indicates a potential risk of anemia. 
+                    This means your blood may not be carrying enough oxygen to your body's tissues.
+                </p>
+                
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-circle"></i> Important Notice</h4>
+                    <p>This is a screening tool and should not replace professional medical diagnosis. 
+                    Please consult with a healthcare provider for proper evaluation and treatment.</p>
+                </div>
+                
+                <div class="recommendations">
+                    <h3><i class="fas fa-clipboard-list"></i> Recommended Actions</h3>
+                    <ul>
+                        <li><i class="fas fa-user-md"></i> Schedule an appointment with your healthcare provider</li>
+                        <li><i class="fas fa-vial"></i> Request a complete blood count (CBC) test</li>
+                        <li><i class="fas fa-apple-alt"></i> Consider iron-rich foods in your diet</li>
+                        <li><i class="fas fa-pills"></i> Discuss potential iron supplements with your doctor</li>
+                        <li><i class="fas fa-heart"></i> Monitor symptoms like fatigue, weakness, or shortness of breath</li>
+                        <li><i class="fas fa-calendar-check"></i> Follow up with regular blood tests as recommended</li>
+                    </ul>
+                </div>
+                
+            {% else %}
+                <div class="result-icon healthy">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="result-title healthy">No Anemia Detected</h2>
+                <p class="result-description">
+                    Great news! Based on your blood parameters, our analysis indicates that your 
+                    blood cell levels appear to be within normal ranges for anemia screening.
+                </p>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> Keep in Mind</h4>
+                    <p>This is a screening tool and should not replace regular health checkups. 
+                    Continue to maintain a healthy lifestyle and consult with your healthcare provider for routine care.</p>
+                </div>
+                
+                <div class="recommendations">
+                    <h3><i class="fas fa-heart"></i> Maintain Your Health</h3>
+                    <ul>
+                        <li><i class="fas fa-apple-alt"></i> Continue eating a balanced, iron-rich diet</li>
+                        <li><i class="fas fa-dumbbell"></i> Maintain regular physical activity</li>
+                        <li><i class="fas fa-calendar-alt"></i> Schedule regular health checkups</li>
+                        <li><i class="fas fa-moon"></i> Get adequate sleep and rest</li>
+                        <li><i class="fas fa-tint"></i> Stay well-hydrated</li>
+                        <li><i class="fas fa-smile"></i> Manage stress levels effectively</li>
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 10px; border-left: 5px solid #2196f3;">
+                <h4 style="color: #1976d2; margin-bottom: 10px;">
+                    <i class="fas fa-microscope"></i> About This Analysis
+                </h4>
+                <p style="font-size: 0.9rem; color: #555; margin: 0;">
+                    This prediction is based on machine learning analysis of your blood parameters including 
+                    Hemoglobin, MCH, MCHC, and MCV values. The system uses advanced algorithms trained on 
+                    clinical data to provide screening-level assessments.
+                </p>
+            </div>
+            
+            <a href="/" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Main Page
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultContainer = document.querySelector('.result-container');
+            resultContainer.style.opacity = '0';
+            resultContainer.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                resultContainer.style.transition = 'all 0.8s ease';
+                resultContainer.style.opacity = '1';
+                resultContainer.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // Add hover effects to recommendations
+            const recommendations = document.querySelectorAll('.recommendations li');
+            recommendations.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#e9ecef';
+                    this.style.paddingLeft = '10px';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.paddingLeft = '0';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
